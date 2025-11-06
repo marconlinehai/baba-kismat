@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baba Kismat 2.0 - Login</title>
+<style>
+  @keyframes glowMove {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 20% 20%, #00ff66 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, #00ff99 0%, transparent 40%),
+                radial-gradient(circle at 60% 30%, #00ffcc 0%, transparent 40%),
+                #000;
+    background-size: 200% 200%;
+    animation: glowMove 6s infinite linear alternate;
+  }
+
+  .login-box {
+    background: rgba(17, 17, 17, 0.95);
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px #00e67655, inset 0 0 10px #00ff9944;
+    width: 90%;
+    max-width: 350px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+  }
+
+  h1 {
+    color: #00ff99;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    text-shadow: 0 0 10px #00ff99aa;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #00ff99;
+    background: #000;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 0 8px #00ff9933;
+  }
+
+  input:focus {
+    border-color: #00ff66;
+    box-shadow: 0 0 15px #00ff6699;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background: #00e676;
+    border: none;
+    color: #000;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 8px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 10px #00ff99aa;
+  }
+
+  button:hover {
+    background: #00ff99;
+    box-shadow: 0 0 20px #00ff66cc;
+  }
+
+  .error {
+    color: #ff5252;
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h1>💻 Baba Kismat 2.0</h1>
+    <input type="text" id="loginId" placeholder="Enter Login ID">
+    <input type="password" id="loginPass" placeholder="Enter Password">
+    <button onclick="login()">Login</button>
+    <div id="errorMsg" class="error"></div>
+  </div>
+
+<script>
+  function login() {
+    const id = document.getElementById("loginId").value.trim();
+    const pass = document.getElementById("loginPass").value.trim();
+    const error = document.getElementById("errorMsg");
+
+    if (id === "baba" && pass === "demo420") {
+      error.textContent = "";
+      alert("✅ Login Successful!");
+      window.location.href = "dashboard.html"; // Redirect to main page
+    } else {
+      error.textContent = "❌ Invalid Login ID or Password";
+    }
+  }
+</script>
+
+</body>
+</html>
