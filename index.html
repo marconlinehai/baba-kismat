@@ -11,6 +11,11 @@
     100% { background-position: 0% 0%; }
   }
 
+  @keyframes slideText {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
   body {
     margin: 0;
     padding: 0;
@@ -35,6 +40,203 @@
     box-shadow: 0 0 25px #00e67655, inset 0 0 10px #00ff9944;
     width: 90%;
     max-width: 350px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    overflow: hidden;
+  }
+
+  h1 {
+    color: #00ff99;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    text-shadow: 0 0 10px #00ff99aa;
+  }
+
+  /* Scrolling text */
+  .scroll-text {
+    color: #00ff99;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 8px #00ff99aa;
+  }
+
+  .scroll-text span {
+    display: inline-block;
+    animation: slideText 15s linear infinite;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #00ff99;
+    background: #000;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 0 8px #00ff9933;
+  }
+
+  input:focus {
+    border-color: #00ff66;
+    box-shadow: 0 0 15px #00ff6699;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background: #00e676;
+    border: none;
+    color: #000;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 8px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 10px #00ff99aa;
+  }
+
+  button:hover {
+    background: #00ff99;
+    box-shadow: 0 0 20px #00ff66cc;
+  }
+
+  .error {
+    color: #ff5252;
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+
+  /* Telegram Button */
+  .telegram-container {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    text-align: center;
+  }
+
+  .top-telegram {
+    background: #0088cc;
+    color: #fff;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 20px #00b8ffaa;
+    transition: 0.3s;
+  }
+
+  .top-telegram:hover {
+    background: #00b8ff;
+    box-shadow: 0 0 25px #00b8ffcc;
+    transform: scale(1.1);
+  }
+
+  .telegram-label {
+    color: #2fbfff;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    text-shadow: 0 0 8px #00ff99aa;
+    font-weight: 600;
+  }
+
+  /* Popup Message */
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.95);
+    color: #00ff99;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px #00ff99aa;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    line-height: 1.6;
+    display: none;
+    z-index: 999;
+    animation: fadeIn 5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -55%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Telegram button & label -->
+  <div class="telegram-container">
+    <button class="top-telegram" onclick="showPopup()">📞</button>
+    <div class="telegram-label">Contact</div>
+  </div>
+
+  <div class="login-box">
+    <h1>💻 Baba Kismat 2.0</h1>
+
+    <!-- Rolling Text -->
+    <div class="scroll-text"><span>baba kismat apko
+All apk all bypas upi
+due bill 50%  quck ac 70%
+jisko chahiye upar contact kare </span></div>
+
+    <input type="text" id="loginId" placeholder="Enter Login ID">
+    <input type="password" id="loginPass" placeholder="Enter Password">
+    <button onclick="login()">Login</button>
+    <div id="errorMsg" class="error"></div>
+  </div>
+
+  <!-- Popup -->
+  <div id="popup" class="popup">
+    ⚠️ <b>Support Notice</b> ⚠️<br><br>
+    Please message only for genuine help or support.<br>
+    Do not send unnecessary or time-pass messages.<br><br>
+    Only contact if you really need assistance.<br>
+    Payments must be completed within 5 minutes after confirmation.<br><br>
+    Redirecting you to Telegram…<br><b>t.me/babajisupport</b>
+  </div>
+
+<script>
+  function login() {
+    const id = document.getElementById("loginId").value.trim();
+    const pass = document.getElementById("loginPass").value.trim();
+    const error = document.getElementById("errorMsg");
+
+    if (id === "baba" && pass === "demo420") {
+      error.textContent = "";
+      window.location.href = "dashboard.html";
+    } else {
+      error.textContent = "❌ Invalid Login ID or Password";
+    }
+  }
+
+  function showPopup() {
+    const popup = document.getElementById("popup");
+    popup.style.display = "block";
+
+    setTimeout(() => {
+      popup.style.display = "none";
+      window.location.href = "https://t.me/babajisupport";
+    }, 10000);
+  }
+</script>
+
+</body>
+</html>    max-width: 350px;
     text-align: center;
     backdrop-filter: blur(5px);
   }
