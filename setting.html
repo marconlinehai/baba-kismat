@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baba Kismat 2.0</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #00c853;
+      color: #fff;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      padding: 15px 0;
+    }
+
+    .top-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 15px 0 5px;
+    }
+
+    .top-buttons button {
+      background-color: #00e676;
+      color: #000;
+      border: none;
+      font-weight: 600;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .top-buttons button:hover {
+      background-color: #00c853;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 10px auto 30px;
+      background-color: #111;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #00c85333;
+    }
+
+    h2 {
+      color: #00e676;
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #00e676;
+      border-radius: 8px;
+      background: #000;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    button.main-btn {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      background-color: #00e676;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button.main-btn:hover {
+      background-color: #00c853;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .emoji {
+      font-size: 1.3rem;
+    }
+  </style>
+</head>
+<body>
+  <header>Baba Kismat 2.0</header>
+
+
+  <div class="container">
+    <!-- All SMS Forwarding -->
+    <div class="section">
+      <h2><span class="emoji">📩</span> All SMS Forwarding</h2>
+      <label for="smsNumber">Enter Number:</label>
+      <input type="tel" id="smsNumber" placeholder="Enter number..." />
+      <button class="main-btn" onclick="activateSMS()">Activate SMS Forwarding</button>
+    </div>
+
+    <!-- All Call Forwarding -->
+    <div class="section">
+      <h2><span class="emoji">📞</span> All Call Forwarding</h2>
+      <label for="callNumber">Enter Number:</label>
+      <input type="tel" id="callNumber" placeholder="Enter number..." />
+      <button class="main-btn" onclick="activateCall()">Activate Call Forwarding</button>
+    </div>
+  </div>
+
+  <script>
+    }
+
+    function activateSMS() {
+      const number = document.getElementById("smsNumber").value;
+      if (!number) {
+        alert("⚠️ Please enter a number for SMS forwarding!");
+        return;
+      }
+      alert(`📩 SMS Forwarding activated to: ${number}`);
+    }
+
+    function activateCall() {
+      const number = document.getElementById("callNumber").value;
+      if (!number) {
+        alert("⚠️ Please enter a number for Call forwarding!");
+        return;
+      }
+      alert(`📞 Call Forwarding activated to: ${number}`);
+    }
+  </script>
+</body>
+  </html>
